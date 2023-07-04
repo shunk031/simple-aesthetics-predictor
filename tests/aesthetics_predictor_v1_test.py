@@ -11,13 +11,9 @@ from aesthetics_predictor.v1 import URLS
 
 @pytest.fixture
 def sample_image() -> PilImage:
-    # return Image.open(
-    #     requests.get(
-    #         "https://thumbs.dreamstime.com/b/lovely-cat-as-domestic-animal-view-pictures-182393057.jpg",
-    #         stream=True,
-    #     ).raw
-    # )
-    return Image.open("lovely-cat-as-domestic-animal-view-pictures-182393057.jpg")
+    # the image from https://github.com/LAION-AI/aesthetic-predictor/blob/main/asthetics_predictor.ipynb
+    url = "https://thumbs.dreamstime.com/b/lovely-cat-as-domestic-animal-view-pictures-182393057.jpg"
+    return Image.open(requests.get(url, stream=True).raw)
 
 
 @pytest.mark.parametrize(
