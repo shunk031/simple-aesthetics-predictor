@@ -1,0 +1,3 @@
+import pytest
+
+from aesthetics_predictor import AestheticsPredictorV2
