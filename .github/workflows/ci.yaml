@@ -44,6 +44,12 @@ jobs:
             --no-site-packages \
             --cache-dir=/dev/null
 
+      - name: Login huggingface hub
+        env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        run: |
+          python -c 'from huggingface_hub import HfFolder; import os; HfFolder.save_token(os.environ["ACCESS_TOKEN"])'
+
       - name: Run tests
         run: |
           pip install pytest
