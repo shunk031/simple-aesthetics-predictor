@@ -47,6 +47,11 @@ prediction = outputs.logits
 print(f"Aesthetics score: {prediction}")
 ```
 
+## The Predictors found in 🤗 Huggingface Hub
+
+- [🤗 aesthetics-predictor-v1](https://huggingface.co/models?search=aesthetics-predictor-v1)
+- [🤗 aesthetics-predictor-v2](https://huggingface.co/models?search=aesthetics-predictor-v1)
+
 ## Acknowledgements
 
 - LAION-AI/aesthetic-predictor: A linear estimator on top of clip to predict the aesthetic quality of pictures https://github.com/LAION-AI/aesthetic-predictor 
