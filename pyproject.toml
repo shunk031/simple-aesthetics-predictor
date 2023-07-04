@@ -7,7 +7,7 @@ readme = "README.md"
 packages = [{include = "aesthetics_predictor"}]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.8"
 transformers = "^4.30.2"
 torch = "^2.0.1"
 torchvision = "^0.15.2"
