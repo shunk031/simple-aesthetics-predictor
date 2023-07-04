@@ -9,9 +9,8 @@ packages = [{include = "aesthetics_predictor"}]
 [tool.poetry.dependencies]
 python = "^3.9"
 transformers = "^4.30.2"
-torch = {version = "^2.0.1+cu117", source = "torch_cu117"}
-torchvision = {version = "^0.15.2+cu117", source = "torch_cu117"}
-
+torch = "^2.0.1"
+torchvision = "^0.15.2"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.0.276"
@@ -19,12 +18,6 @@ black = "^23.3.0"
 mypy = "^1.4.1"
 pytest = "^7.4.0"
 types-requests = "^2.31.0.1"
-
-
-[[tool.poetry.source]]
-name = "torch_cu117"
-url = "https://download.pytorch.org/whl/cu117"
-priority = "explicit"
 
 [build-system]
 requires = ["poetry-core"]
