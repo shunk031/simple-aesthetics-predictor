@@ -2,9 +2,11 @@ from typing import Dict, Final, Optional, Tuple, Union
 
 import torch
 import torch.nn as nn
-from transformers import CLIPVisionModelWithProjection
+from transformers import CLIPVisionModelWithProjection, logging
 from transformers.modeling_outputs import ImageClassifierOutputWithNoAttention
 from transformers.models.clip.configuration_clip import CLIPVisionConfig
+
+logging.set_verbosity_error()
 
 URLS: Final[Dict[str, str]] = {
     "openai/clip-vit-base-patch16": "https://github.com/LAION-AI/aesthetic-predictor/raw/main/sa_0_4_vit_b_16_linear.pth",
