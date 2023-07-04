@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "simple-aesthetics-predictor"
+version = "0.1.0"
+description = ""
+authors = ["Shunsuke KITADA <shunsuke.kitada.0831@gmail.com>"]
+readme = "README.md"
+packages = [{include = "aesthetics_predictor"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+transformers = "^4.30.2"
+torch = {version = "^2.0.1+cu117", source = "torch_cu117"}
+torchvision = {version = "^0.15.2+cu117", source = "torch_cu117"}
+
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.0.276"
+black = "^23.3.0"
+mypy = "^1.4.1"
+pytest = "^7.4.0"
+types-requests = "^2.31.0.1"
+
+
+[[tool.poetry.source]]
+name = "torch_cu117"
+url = "https://download.pytorch.org/whl/cu117"
+priority = "explicit"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
