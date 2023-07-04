@@ -50,7 +50,7 @@ print(f"Aesthetics score: {prediction}")
 ## The Predictors found in 🤗 Huggingface Hub
 
 - [🤗 aesthetics-predictor-v1](https://huggingface.co/models?search=aesthetics-predictor-v1)
-- [🤗 aesthetics-predictor-v2](https://huggingface.co/models?search=aesthetics-predictor-v1)
+- [🤗 aesthetics-predictor-v2](https://huggingface.co/models?search=aesthetics-predictor-v2)
 
 ## Acknowledgements
 
