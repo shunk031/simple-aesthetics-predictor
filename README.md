@@ -1,5 +1,7 @@
 # 🤗 Simple Aesthetics Predictor
 
+[![CI](https://github.com/shunk031/simple-aesthetics-predictor/actions/workflows/ci.yaml/badge.svg)](https://github.com/shunk031/simple-aesthetics-predictor/actions/workflows/ci.yaml)
+
 [CLIP](https://arxiv.org/abs/2103.00020)-based aesthetics predictor inspired by the interface of [🤗 huggingface transformers](https://huggingface.co/docs/transformers/index). This library provides a simple wrapper that can load the predictor using the `from_pretrained` method.
 
 ## Install
