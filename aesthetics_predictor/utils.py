@@ -12,4 +12,5 @@ def get_model_name_for_v1(org_model_name: str) -> str:
 
 
 def get_model_name_for_v2(predictor_head_name: str) -> str:
+    predictor_head_name = predictor_head_name.replace("+", "-")
     return f"shunk031/aesthetics-predictor-v2-{predictor_head_name}"
