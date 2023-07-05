@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from typing import Dict, Final, Optional, Tuple, Union
 
 import torch
@@ -8,28 +9,28 @@ from transformers.models.clip.configuration_clip import CLIPVisionConfig
 
 logging.set_verbosity_error()
 
-URLS: Final[Dict[str, str]] = {
+URLS_LINEAR: Final[Dict[str, str]] = {
     "sac+logos+ava1-l14-linearMSE": "https://github.com/christophschuhmann/improved-aesthetic-predictor/raw/main/sac%2Blogos%2Bava1-l14-linearMSE.pth",
     "ava+logos-l14-linearMSE": "https://github.com/christophschuhmann/improved-aesthetic-predictor/raw/main/ava%2Blogos-l14-linearMSE.pth",
+}
+
+
+URLS_RELU: Final[Dict[str, str]] = {
     "ava+logos-l14-reluMSE": "https://github.com/christophschuhmann/improved-aesthetic-predictor/raw/main/ava%2Blogos-l14-reluMSE.pth",
 }
 
 
-class AestheticsPredictorV2(CLIPVisionModelWithProjection):
-    def __init__(self, config: CLIPVisionConfig):
+class AestheticsPredictorV2Linear(CLIPVisionModelWithProjection):
+    def __init__(self, config: CLIPVisionConfig) -> None:
         super().__init__(config)
         self.layers = nn.Sequential(
             nn.Linear(config.projection_dim, 1024),
-            # nn.ReLU(),
             nn.Dropout(0.2),
             nn.Linear(1024, 128),
-            # nn.ReLU(),
             nn.Dropout(0.2),
             nn.Linear(128, 64),
-            # nn.ReLU(),
             nn.Dropout(0.1),
             nn.Linear(64, 16),
-            # nn.ReLU(),
             nn.Linear(16, 1),
         )
         self.post_init()
@@ -55,7 +56,7 @@ class AestheticsPredictorV2(CLIPVisionModelWithProjection):
         image_embeds = outputs[0]  # image_embeds
         image_embeds /= image_embeds.norm(dim=-1, keepdim=True)
 
-        prediction = self.layer(image_embeds)
+        prediction = self.layers(image_embeds)
 
         loss = None
         if labels is not None:
@@ -70,3 +71,67 @@ class AestheticsPredictorV2(CLIPVisionModelWithProjection):
             logits=prediction,
             hidden_states=image_embeds,
         )
+
+
+class AestheticsPredictorV2ReLU(AestheticsPredictorV2Linear):
+    def __init__(self, config: CLIPVisionConfig):
+        super().__init__(config)
+        self.layers = nn.Sequential(
+            nn.Linear(config.projection_dim, 1024),
+            nn.ReLU(),
+            nn.Dropout(0.2),
+            nn.Linear(1024, 128),
+            nn.ReLU(),
+            nn.Dropout(0.2),
+            nn.Linear(128, 64),
+            nn.ReLU(),
+            nn.Dropout(0.1),
+            nn.Linear(64, 16),
+            nn.ReLU(),
+            nn.Linear(16, 1),
+        )
+        self.post_init()
+
+
+def convert_v2_linear_from_openai_clip(
+    predictor_head_name: str,
+    openai_model_name: str = "openai/clip-vit-large-patch14",
+) -> AestheticsPredictorV2Linear:
+    model = AestheticsPredictorV2Linear.from_pretrained(openai_model_name)
+
+    state_dict = torch.hub.load_state_dict_from_url(
+        URLS_LINEAR[predictor_head_name], map_location="cpu"
+    )
+    assert isinstance(state_dict, OrderedDict)
+
+    # remove `layers.` from the key of the state_dict
+    state_dict = OrderedDict(
+        ((k.replace("layers.", ""), v) for k, v in state_dict.items())
+    )
+    model.layers.load_state_dict(state_dict)
+
+    model.eval()
+
+    return model
+
+
+def convert_v2_relu_from_openai_clip(
+    predictor_head_name: str,
+    openai_model_name: str = "openai/clip-vit-large-patch14",
+) -> AestheticsPredictorV2ReLU:
+    model = AestheticsPredictorV2ReLU.from_pretrained(openai_model_name)
+
+    state_dict = torch.hub.load_state_dict_from_url(
+        URLS_RELU[predictor_head_name], map_location="cpu"
+    )
+    assert isinstance(state_dict, OrderedDict)
+
+    # remove `layers.` from the key of the state_dict
+    state_dict = OrderedDict(
+        ((k.replace("layers.", ""), v) for k, v in state_dict.items())
+    )
+    model.layers.load_state_dict(state_dict)
+
+    model.eval()
+
+    return model
