@@ -51,3 +51,12 @@ class AestheticsPredictorV1(CLIPVisionModelWithProjection):
             logits=prediction,
             hidden_states=image_embeds,
         )
+
+
+def convert_from_openai_clip(openai_model_name: str) -> AestheticsPredictorV1:
+    model = AestheticsPredictorV1.from_pretrained(openai_model_name)
+    state_dict = torch.hub.load_state_dict_from_url(URLS[openai_model_name])
+    model.predictor.load_state_dict(state_dict)
+    model.eval()
+
+    return model
