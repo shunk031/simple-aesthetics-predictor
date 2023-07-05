@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "simple-aesthetics-predictor"
-version = "0.1.0"
+version = "0.0.0" # specified by poetry-dynamic-versioning
 description = ""
 authors = ["Shunsuke KITADA <shunsuke.kitada.0831@gmail.com>"]
 readme = "README.md"
@@ -19,6 +19,9 @@ mypy = "^1.4.1"
 pytest = "^7.4.0"
 types-requests = "^2.31.0.1"
 
+[tool.poetry-dynamic-versioning]
+enable = true
+
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]
+build-backend = "poetry_dynamic_versioning.backend"
