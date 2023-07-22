@@ -63,9 +63,9 @@ jobs:
           pip install .
       - name: Login huggingface hub
         env:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          HF_ACCESS_TOKEN: ${{ secrets.HF_ACCESS_TOKEN }}
         run: |
-          python -c 'from huggingface_hub import HfFolder; import os; HfFolder.save_token(os.environ["ACCESS_TOKEN"])'
+          python -c 'from huggingface_hub import HfFolder; import os; HfFolder.save_token(os.environ["HF_ACCESS_TOKEN"])'
       
       - name: Publish the predictor to the hub
         run: |
