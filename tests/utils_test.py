@@ -32,15 +32,15 @@ def test_get_model_name_for_v1(
     argvalues=(
         (
             "sac+logos+ava1-l14-linearMSE",
-            "shunk031/aesthetics-predictor-v2-sac+logos+ava1-l14-linearMSE",
+            "shunk031/aesthetics-predictor-v2-sac-logos-ava1-l14-linearMSE",
         ),
         (
             "ava+logos-l14-linearMSE",
-            "shunk031/aesthetics-predictor-v2-ava+logos-l14-linearMSE",
+            "shunk031/aesthetics-predictor-v2-ava-logos-l14-linearMSE",
         ),
         (
             "ava+logos-l14-reluMSE",
-            "shunk031/aesthetics-predictor-v2-ava+logos-l14-reluMSE",
+            "shunk031/aesthetics-predictor-v2-ava-logos-l14-reluMSE",
         ),
     ),
 )
