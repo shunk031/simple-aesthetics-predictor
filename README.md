@@ -1,6 +1,7 @@
 # 🤗 Simple Aesthetics Predictor
 
 [![CI](https://github.com/shunk031/simple-aesthetics-predictor/actions/workflows/ci.yaml/badge.svg)](https://github.com/shunk031/simple-aesthetics-predictor/actions/workflows/ci.yaml)
+[![Release](https://github.com/shunk031/simple-aesthetics-predictor/actions/workflows/deploy_and_release.yaml/badge.svg)](https://github.com/shunk031/simple-aesthetics-predictor/actions/workflows/deploy_and_release.yaml)
 ![Python](https://img.shields.io/badge/python-3.8%20%7C%203.9%20%7C%203.10-blue?logo=python)
 [![PyPI](https://img.shields.io/pypi/v/simple-aesthetics-predictor.svg)](https://pypi.python.org/pypi/simple-aesthetics-predictor)
 
