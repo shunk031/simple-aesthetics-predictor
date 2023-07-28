@@ -28,7 +28,7 @@ from aesthetics_predictor import AestheticsPredictorV1
 #
 model_id = "shunk031/aesthetics-predictor-v1-vit-large-patch14"
 
-model = AestheticsPredictorV1.from_pretrained(model_id)
+predictor = AestheticsPredictorV1.from_pretrained(model_id)
 processor = CLIPProcessor.from_pretrained(model_id)
 
 #
@@ -40,13 +40,20 @@ image = Image.open(requests.get(url, stream=True).raw)
 #
 # Preprocess the image
 #
-inputs = processor(images=image, return_tensor="pt")
+inputs = processor(images=image, return_tensors="pt")
+
+#
+# Move to GPU
+#
+device = "cuda"
+predictor = predictor.to(device)
+inputs = {k: v.to(device) for k, v in inputs.items()}
 
 #
 # Inference for the image
 #
-with torch.no_grad():
-    outputs = model(**inputs)
+with torch.no_grad(): # or `torch.inference_model` in torch 1.9+
+    outputs = predictor(**inputs)
 prediction = outputs.logits
 
 print(f"Aesthetics score: {prediction}")
