@@ -5,7 +5,12 @@
 ![Python](https://img.shields.io/badge/python-3.8%20%7C%203.9%20%7C%203.10-blue?logo=python)
 [![PyPI](https://img.shields.io/pypi/v/simple-aesthetics-predictor.svg)](https://pypi.python.org/pypi/simple-aesthetics-predictor)
 
-[CLIP](https://arxiv.org/abs/2103.00020)-based aesthetics predictor inspired by the interface of [🤗 huggingface transformers](https://huggingface.co/docs/transformers/index). This library provides a simple wrapper that can load the predictor using the `from_pretrained` method.
+[CLIP](https://arxiv.org/abs/2103.00020)-based aesthetics predictor inspired by the interface of [🤗 huggingface transformers](https://huggingface.co/docs/transformers/index).
+This library provides a simple wrapper that can load the predictor using the `from_pretrained` method.
+
+This library currently provides the following wappers for aethetics predictor:
+- **v1**: LAION-AI/aesthetic-predictor: A linear estimator on top of clip to predict the aesthetic quality of pictures https://github.com/LAION-AI/aesthetic-predictor 
+- **v2**: christophschuhmann/improved-aesthetic-predictor: CLIP+MLP Aesthetic Score Predictor https://github.com/christophschuhmann/improved-aesthetic-predictor 
 
 ## Install
 
