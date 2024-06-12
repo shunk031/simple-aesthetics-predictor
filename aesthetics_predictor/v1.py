@@ -2,6 +2,7 @@ from typing import Dict, Final, Optional, Tuple, Union
 
 import torch
 import torch.nn as nn
+from torch.hub import load_state_dict_from_url
 from transformers import CLIPVisionModelWithProjection, logging
 from transformers.modeling_outputs import ImageClassifierOutputWithNoAttention
 from transformers.models.clip.configuration_clip import CLIPVisionConfig
@@ -54,9 +55,12 @@ class AestheticsPredictorV1(CLIPVisionModelWithProjection):
 
 
 def convert_from_openai_clip(openai_model_name: str) -> AestheticsPredictorV1:
-    model = AestheticsPredictorV1.from_pretrained(openai_model_name)
-    state_dict = torch.hub.load_state_dict_from_url(URLS[openai_model_name])
-    model.predictor.load_state_dict(state_dict)
+    model: AestheticsPredictorV1
+    model = AestheticsPredictorV1.from_pretrained(openai_model_name)  # type: ignore
+
+    model.predictor.load_state_dict(
+        state_dict=load_state_dict_from_url(URLS[openai_model_name])
+    )
     model.eval()
 
     return model
