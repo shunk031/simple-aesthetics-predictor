@@ -1,23 +1,25 @@
 [tool.poetry]
 name = "simple-aesthetics-predictor"
-version = "0.0.0" # specified by poetry-dynamic-versioning
+version = "0.0.0"                                              # specified by poetry-dynamic-versioning
 description = ""
 authors = ["Shunsuke KITADA <shunsuke.kitada.0831@gmail.com>"]
 readme = "README.md"
-packages = [{include = "aesthetics_predictor"}]
+packages = [{ include = "aesthetics_predictor" }]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-transformers = "^4.30.2"
-torch = ">=1.0"
-torchvision = ">=0.2.1"
+transformers = { version = ">=4.6.0", extras = ["torch", "vision"] }
+torch = "!=2.0.1, !=2.1.0"
 
 [tool.poetry.group.dev.dependencies]
-ruff = "^0.0.276"
-black = "^23.3.0"
-mypy = "^1.4.1"
-pytest = "^7.4.0"
-types-requests = "^2.31.0.1"
+ruff = ">=0.1.5"
+mypy = ">=1.0.0"
+pytest = ">=6.0.0"
+types-requests = "^2.32.0.20240602"
+
+[tool.mypy]
+python_version = "3.9"
+ignore_missing_imports = true
 
 [tool.poetry-dynamic-versioning]
 enable = true
