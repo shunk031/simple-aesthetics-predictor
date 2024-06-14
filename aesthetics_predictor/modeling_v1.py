@@ -4,7 +4,8 @@ import torch
 import torch.nn as nn
 from transformers import CLIPVisionModelWithProjection, logging
 from transformers.modeling_outputs import ImageClassifierOutputWithNoAttention
-from transformers.models.clip.configuration_clip import CLIPVisionConfig
+
+from .configuration_predictor import AestheticsPredictorConfig
 
 logging.set_verbosity_error()
 
@@ -16,7 +17,7 @@ URLS: Final[Dict[str, str]] = {
 
 
 class AestheticsPredictorV1(CLIPVisionModelWithProjection):
-    def __init__(self, config: CLIPVisionConfig) -> None:
+    def __init__(self, config: AestheticsPredictorConfig) -> None:
         super().__init__(config)
         self.predictor = nn.Linear(config.projection_dim, 1)
         self.post_init()
@@ -53,8 +54,15 @@ class AestheticsPredictorV1(CLIPVisionModelWithProjection):
         )
 
 
-def convert_from_openai_clip(openai_model_name: str) -> AestheticsPredictorV1:
-    model = AestheticsPredictorV1.from_pretrained(openai_model_name)
+def convert_from_openai_clip(
+    openai_model_name: str, config: Optional[AestheticsPredictorConfig] = None
+) -> AestheticsPredictorV1:
+    config = config or AestheticsPredictorConfig.from_pretrained(openai_model_name)
+    model = AestheticsPredictorV1(config)
+
+    clip_model = CLIPVisionModelWithProjection.from_pretrained(openai_model_name)
+    model.load_state_dict(clip_model.state_dict(), strict=False)
+
     state_dict = torch.hub.load_state_dict_from_url(URLS[openai_model_name])
     model.predictor.load_state_dict(state_dict)
     model.eval()
