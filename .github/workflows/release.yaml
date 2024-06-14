@@ -1,0 +1,16 @@
+name: Release
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  tagpr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: Songmu/tagpr@v1
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
