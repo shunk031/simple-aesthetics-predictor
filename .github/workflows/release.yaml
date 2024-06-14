@@ -6,11 +6,11 @@ on:
 
 jobs:
   tagpr:
-      runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-      steps:
-        - uses: actions/checkout@4
+    steps:
+      - uses: actions/checkout@v4
 
-        - uses: Songmu/tagpr@v1
-          env:
-            GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: Songmu/tagpr@v1
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
