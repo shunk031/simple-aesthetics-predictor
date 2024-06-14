@@ -5,7 +5,8 @@ import torch
 import torch.nn as nn
 from transformers import CLIPVisionModelWithProjection, logging
 from transformers.modeling_outputs import ImageClassifierOutputWithNoAttention
-from transformers.models.clip.configuration_clip import CLIPVisionConfig
+
+from .configuration_predictor import AestheticsPredictorConfig
 
 logging.set_verbosity_error()
 
@@ -21,7 +22,7 @@ URLS_RELU: Final[Dict[str, str]] = {
 
 
 class AestheticsPredictorV2Linear(CLIPVisionModelWithProjection):
-    def __init__(self, config: CLIPVisionConfig) -> None:
+    def __init__(self, config: AestheticsPredictorConfig) -> None:
         super().__init__(config)
         self.layers = nn.Sequential(
             nn.Linear(config.projection_dim, 1024),
@@ -74,7 +75,7 @@ class AestheticsPredictorV2Linear(CLIPVisionModelWithProjection):
 
 
 class AestheticsPredictorV2ReLU(AestheticsPredictorV2Linear):
-    def __init__(self, config: CLIPVisionConfig):
+    def __init__(self, config: AestheticsPredictorConfig) -> None:
         super().__init__(config)
         self.layers = nn.Sequential(
             nn.Linear(config.projection_dim, 1024),
@@ -96,8 +97,13 @@ class AestheticsPredictorV2ReLU(AestheticsPredictorV2Linear):
 def convert_v2_linear_from_openai_clip(
     predictor_head_name: str,
     openai_model_name: str = "openai/clip-vit-large-patch14",
+    config: Optional[AestheticsPredictorConfig] = None,
 ) -> AestheticsPredictorV2Linear:
-    model = AestheticsPredictorV2Linear.from_pretrained(openai_model_name)
+    config = config or AestheticsPredictorConfig.from_pretrained(openai_model_name)
+    model = AestheticsPredictorV2Linear(config)
+
+    clip_model = CLIPVisionModelWithProjection.from_pretrained(openai_model_name)
+    model.load_state_dict(clip_model.state_dict(), strict=False)
 
     state_dict = torch.hub.load_state_dict_from_url(
         URLS_LINEAR[predictor_head_name], map_location="cpu"
@@ -118,8 +124,13 @@ def convert_v2_linear_from_openai_clip(
 def convert_v2_relu_from_openai_clip(
     predictor_head_name: str,
     openai_model_name: str = "openai/clip-vit-large-patch14",
+    config: Optional[AestheticsPredictorConfig] = None,
 ) -> AestheticsPredictorV2ReLU:
-    model = AestheticsPredictorV2ReLU.from_pretrained(openai_model_name)
+    config = config or AestheticsPredictorConfig.from_pretrained(openai_model_name)
+    model = AestheticsPredictorV2ReLU(config)
+
+    clip_model = CLIPVisionModelWithProjection.from_pretrained(openai_model_name)
+    model.load_state_dict(clip_model.state_dict(), strict=False)
 
     state_dict = torch.hub.load_state_dict_from_url(
         URLS_RELU[predictor_head_name], map_location="cpu"

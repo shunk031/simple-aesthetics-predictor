@@ -6,7 +6,7 @@ from PIL import Image
 from PIL.Image import Image as PilImage
 from transformers import CLIPProcessor
 
-from aesthetics_predictor.v2 import (
+from aesthetics_predictor.modeling_v2 import (
     convert_v2_linear_from_openai_clip,
     convert_v2_relu_from_openai_clip,
 )

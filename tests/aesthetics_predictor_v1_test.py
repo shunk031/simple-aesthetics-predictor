@@ -6,8 +6,8 @@ from PIL.Image import Image as PilImage
 from transformers import CLIPProcessor
 
 from aesthetics_predictor import AestheticsPredictorV1
+from aesthetics_predictor.modeling_v1 import convert_from_openai_clip
 from aesthetics_predictor.utils import get_model_name_for_v1
-from aesthetics_predictor.v1 import convert_from_openai_clip
 
 
 @pytest.fixture
