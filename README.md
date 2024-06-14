@@ -1,9 +1,11 @@
 # 🤗 Simple Aesthetics Predictor
 
 [![CI](https://github.com/shunk031/simple-aesthetics-predictor/actions/workflows/ci.yaml/badge.svg)](https://github.com/shunk031/simple-aesthetics-predictor/actions/workflows/ci.yaml)
-[![Release](https://github.com/shunk031/simple-aesthetics-predictor/actions/workflows/deploy_and_release.yaml/badge.svg)](https://github.com/shunk031/simple-aesthetics-predictor/actions/workflows/deploy_and_release.yaml)
+[![Release](https://github.com/shunk031/simple-aesthetics-predictor/actions/workflows/release.yaml/badge.svg)](https://github.com/shunk031/simple-aesthetics-predictor/actions/workflows/release.yaml)
+[![Deploy](https://github.com/shunk031/simple-aesthetics-predictor/actions/workflows/deploy.yaml/badge.svg)](https://github.com/shunk031/simple-aesthetics-predictor/actions/workflows/deploy.yaml)
 ![Python](https://img.shields.io/badge/python-3.8%20%7C%203.9%20%7C%203.10-blue?logo=python)
 [![PyPI](https://img.shields.io/pypi/v/simple-aesthetics-predictor.svg)](https://pypi.python.org/pypi/simple-aesthetics-predictor)
+![Hugging Face Models Hub](https://img.shields.io/badge/Hugging%20Face_🤗-Models-ffcc66)
 
 [CLIP](https://arxiv.org/abs/2103.00020)-based aesthetics predictor inspired by the interface of [🤗 huggingface transformers](https://huggingface.co/docs/transformers/index).
 This library provides a simple wrapper that can load the predictor using the `from_pretrained` method.
