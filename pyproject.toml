@@ -9,6 +9,7 @@ packages = [{ include = "aesthetics_predictor" }]
 [tool.poetry.dependencies]
 python = "^3.8"
 transformers = { version = ">=4.6.0", extras = ["torch"] }
+torch = "!=2.0.1, !=2.1.0"
 
 [tool.poetry.group.dev.dependencies]
 ruff = ">=0.1.5"
