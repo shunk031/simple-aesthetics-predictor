@@ -18,43 +18,30 @@ jobs:
         python-version: ['3.8', '3.9', '3.10']
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install .
+          pip install -U pip setuptools wheel poetry
+          poetry install
 
       - name: Format
         run: |
-          pip install black
-          black --check .
+          poetry run ruff format --check --diff .
 
       - name: Lint
         run: |
-          pip install flake8
-          flake8 . --ignore=E501,W503,E203
+          poetry run ruff check --output-format=github .
 
       - name: Type check
         run: |
-          pip install mypy
-          mypy . \
-            --ignore-missing-imports \
-            --no-strict-optional \
-            --no-site-packages \
-            --cache-dir=/dev/null
-
-      - name: Login huggingface hub
-        env:
-          HF_ACCESS_TOKEN: ${{ secrets.HF_ACCESS_TOKEN }}
-        run: |
-          python -c 'from huggingface_hub import HfFolder; import os; HfFolder.save_token(os.environ["HF_ACCESS_TOKEN"])'
+          poetry run mypy .
 
       - name: Run tests
         run: |
-          pip install pytest
-          pytest --color=yes -rf
+          poetry run pytest --color=yes -rf
