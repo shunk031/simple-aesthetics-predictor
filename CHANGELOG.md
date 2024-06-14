@@ -1,6 +1,6 @@
 # Changelog
 
-## [v0.1.3](https://github.com/shunk031/simple-aesthetics-predictor/compare/v0.1.2...v0.1.3) - 2024-06-14
+## [v0.2.0](https://github.com/shunk031/simple-aesthetics-predictor/compare/v0.1.2...v0.2.0) - 2024-06-14
 - update README.md by @shunk031 in https://github.com/shunk031/simple-aesthetics-predictor/pull/16
 - update README by @shunk031 in https://github.com/shunk031/simple-aesthetics-predictor/pull/18
 - Update poetry files by @shunk031 in https://github.com/shunk031/simple-aesthetics-predictor/pull/21
