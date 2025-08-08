@@ -1234,7 +1234,7 @@ wheels = [
 
 [[package]]
 name = "simple-aesthetics-predictor"
-version = "0.1.0"
+version = "0.2.0"
 source = { editable = "." }
 dependencies = [
     { name = "transformers", extra = ["torch", "vision"] },
