@@ -1,3 +1,5 @@
+import io
+
 import pytest
 import requests
 import torch
@@ -11,10 +13,16 @@ from aesthetics_predictor.utils import get_model_name_for_v1
 
 
 @pytest.fixture
-def sample_image() -> PilImage:
+def sample_image_url() -> str:
     # the image from https://github.com/LAION-AI/aesthetic-predictor/blob/main/asthetics_predictor.ipynb
-    url = "https://thumbs.dreamstime.com/b/lovely-cat-as-domestic-animal-view-pictures-182393057.jpg"
-    return Image.open(requests.get(url, stream=True).raw)
+    return "https://thumbs.dreamstime.com/b/lovely-cat-as-domestic-animal-view-pictures-182393057.jpg"
+
+
+@pytest.fixture
+def sample_image(sample_image_url: str) -> PilImage:
+    image_res = requests.get(sample_image_url)
+    image_res.raise_for_status()
+    return Image.open(io.BytesIO(image_res.content))
 
 
 @pytest.mark.parametrize(

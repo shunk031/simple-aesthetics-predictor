@@ -34,7 +34,7 @@ def push_aesthetics_predictor_v1() -> None:
         model.register_for_auto_class()
 
         logger.info(f"Push model to the hub: {model_name}")
-        model.push_to_hub(model_name, private=True)
+        model.push_to_hub(model_name, private=True)  # type: ignore[arg-type]
 
         logger.info(f"Push processor to the hub: {model_name}")
         processor.push_to_hub(model_name, private=True)
@@ -57,7 +57,7 @@ def push_aesthetics_predictor_v2(
             model_name = get_model_name_for_v2(predictor_head_name)
             logger.info(f"Push model to the hub: {model_name}")
             model.register_for_auto_class()
-            model.push_to_hub(model_name, private=True)
+            model.push_to_hub(model_name, private=True)  # type: ignore[arg-type]
 
             logger.info(f"Push processor to the hub: {model_name}")
             processor.push_to_hub(model_name, private=True)
@@ -75,7 +75,7 @@ def push_aesthetics_predictor_v2(
             model_name = get_model_name_for_v2(predictor_head_name)
             logger.info(f"Push model to the hub: {model_name}")
             model.register_for_auto_class()
-            model.push_to_hub(model_name, private=True)
+            model.push_to_hub(model_name, private=True)  # type: ignore[arg-type]
 
             logger.info(f"Push processor to the hub: {model_name}")
             processor.push_to_hub(model_name, private=True)
