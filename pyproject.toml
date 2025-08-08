@@ -22,9 +22,10 @@ build-backend = "hatchling.build"
 [dependency-groups]
 dev = [
     "mypy>=1.0.0",
- "pytest>=6.0.0",
- "ruff>=0.1.5",
- "types-requests>=2.32.4.20250611",
+    "pytest>=6.0.0",
+    "pytest-cov>=6.0.0",
+    "ruff>=0.1.5",
+    "types-requests>=2.32.4.20250611",
 ]
 
 [tool.hatch.build.targets.wheel]
