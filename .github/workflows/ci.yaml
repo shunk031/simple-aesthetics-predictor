@@ -12,16 +12,6 @@ on:
       - 'README.md'
       - 'CHANGELOG.md'
 
-name: CI
-
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-    paths-ignore:
-      - "README.md"
-
 jobs:
   test:
     runs-on: ubuntu-latest
